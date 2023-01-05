@@ -48,7 +48,19 @@ const App: FC = () => {
             )
           }
         </div>
+        <p>
+          <button onClick={() => {
+            const cache: { [key: string]: number } = {};
 
+            for (let i = 0; i < 6; i++) {
+              const num = Math.floor(Math.random() * imagesState.length);
+
+              cache[num] = num;
+            }
+
+            setImagesState(imagesState.filter(el => el.id !== cache[el.id]));
+          }}>Delete Random 5</button>
+        </p>
       </div>
     </div>
   )
