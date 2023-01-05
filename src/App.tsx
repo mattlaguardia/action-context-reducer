@@ -1,17 +1,19 @@
-import { useState } from 'react'
+import { FC } from 'react';
 import './App.css'
+
+import { CountProvider } from './providers';
 
 import ComponentOne from './components/ComponentOne';
 import ComponentTwo from './components/ComponentTwo';
 
-function App() {
-  const [count, setCount] = useState(0)
-
+const App: FC = () => {
   return (
     <div className="App">
       <div className="card">
-        <ComponentOne />
-        <ComponentTwo />
+        <CountProvider>
+          <ComponentOne />
+          <ComponentTwo />
+        </CountProvider>
       </div>
     </div>
   )

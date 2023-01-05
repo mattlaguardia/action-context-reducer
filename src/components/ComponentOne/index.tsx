@@ -1,15 +1,17 @@
-import React, { FC, useState } from 'react';
+import { FC, useContext } from 'react';
+import { CountContext } from '../../contexts';
+import { INCREMENT_ACTION } from '../../actions';
 
 const ComponentOne: FC = () => {
-  const [ count, setCount ] = useState(0);
+  const { state, dispatch } = useContext(CountContext);
 
   return (
     <>
       <p>
-        ComponentOne Count = { count }
+        ComponentOne Count = { state.count }
         <br/>
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
+        <button onClick={() => dispatch(INCREMENT_ACTION)}>
+          count is {state.count}
         </button>
       </p>
     </>
