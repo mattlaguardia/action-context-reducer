@@ -1,4 +1,5 @@
 import { FC, useEffect, useState, useRef } from 'react';
+import { v4 as uuidv4 } from 'uuid';
 import autoAnimate from '@formkit/auto-animate';
 import './App.css'
 
@@ -12,7 +13,7 @@ const App: FC = () => {
     .fill('')
     .map((el, index) => {
       return {
-        id: index,
+        id: uuidv4(),
       }
     });
 
@@ -38,28 +39,41 @@ const App: FC = () => {
         <h3>Card Animation</h3>
         <div className="container" ref={parent}>
           {
-            imagesState.map((selector) =>
+            imagesState.map((selector, index) =>
               <div className="image-card"
                 key={selector.id}
                 onClick={() => {
                   setImagesState(imagesState.filter(el => el.id !== selector.id));
                 }}
-              >image { selector.id }</div>
+              >image { index }</div>
             )
           }
         </div>
         <p>
           <button onClick={() => {
-            const cache: { [key: string]: number } = {};
+            const clone = structuredClone(imagesState);
 
             for (let i = 0; i < 6; i++) {
               const num = Math.floor(Math.random() * imagesState.length);
 
-              cache[num] = num;
+              delete clone[num];
             }
 
-            setImagesState(imagesState.filter(el => el.id !== cache[el.id]));
+            setImagesState(clone);
           }}>Delete Random 5</button>
+          <button onClick={() => {
+            const clone = structuredClone(imagesState);
+
+            for (let i = 0; i < 6; i++) {
+              const num = Math.floor(Math.random() * imagesState.length);
+
+              clone.splice(num, 0, {
+                id: uuidv4()
+              });
+            }
+
+            setImagesState(clone);
+          }}>Add Random 5</button>
         </p>
       </div>
     </div>
