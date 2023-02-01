@@ -5,6 +5,8 @@ import { INCREMENT_ACTION } from '../../actions';
 const ComponentOne: FC = () => {
   const { state, dispatch } = useContext(CountContext);
 
+  console.log('test token');
+
   return (
     <>
       <p>
